@@ -4,6 +4,7 @@ using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -21,6 +22,8 @@ namespace MCBot
 
         private async Task RunAsync()
         {
+
+            Directory.CreateDirectory(Staff.path);
             client = new DiscordSocketClient();
             service = new CommandService();
             provider = new ServiceCollection()
