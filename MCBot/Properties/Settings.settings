@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MCBot.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ip" Type="System.String" Scope="User">
+      <Value Profile="(Default)">104.193.181.10</Value>
+    </Setting>
+    <Setting Name="port" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">35150</Value>
+    </Setting>
+    <Setting Name="url" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tea.mc.gg</Value>
+    </Setting>
+    <Setting Name="useurl" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="StaffApplicationTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TeaCraft Staff Application</Value>
+    </Setting>
+    <Setting Name="StaffApplicationDescription" Type="System.String" Scope="User">
+      <Value Profile="(Default)">This is the staff application where you can apply for almost any role. using the layout that is provided. Note that the application must be in this layout.</Value>
+    </Setting>
+    <Setting Name="StaffApplicationColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Fuchsia</Value>
+    </Setting>
+    <Setting Name="StaffApplicationFooter" Type="System.String" Scope="User">
+      <Value Profile="(Default)">We hope you enjoy your time on our server.</Value>
+    </Setting>
+    <Setting Name="StaffApplicationIcon" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://cdn.discordapp.com/attachments/408720100279975938/523205251910598690/unnamed.png</Value>
+    </Setting>
+    <Setting Name="StaffChannelID" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">521027082952769554</Value>
+    </Setting>
+    <Setting Name="TCGuild" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">480494199393746964</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
