@@ -43,6 +43,7 @@ namespace MCBot
                 var demoreason = "Example";
                 builder.AddField("Layout Exampel", 
                     $"```\n" +
+                    $"!staffapp\n" +
                     $"Name: {demoname}\n" +
                     $"Age: {demoage}\n" +
                     $"Role: {demorole}\n" +
@@ -70,7 +71,7 @@ namespace MCBot
                 var ticketnumber = (codeparts[ticketnumber1] + "-" + codeparts[ticketnumber2]).ToUpper();
 
 
-                await ReplyAsync(":white_check_mark: Staff Application has been recieved and will be look over by one of our admis, thank you\n" +
+                await Context.User.SendMessageAsync($":white_check_mark: Staff Application has been recieved and will be look over by one of our admis, thank you\n" +
                     $"Your ticket number: `{ticketnumber}`");
                 app = app.Replace("```", string.Empty);
                 app = app.Replace("&user", $"{Context.User.Username }#{Context.User.Discriminator}");
@@ -90,7 +91,7 @@ namespace MCBot
                 file.Save(ticketnumber);
 
                 await TCProgram.client.GetGuild(Settings.Default.TCGuild).GetTextChannel(Settings.Default.StaffChannelID).SendMessageAsync(
-                    $":white_check_mark: Staff Application has been sumited\n" +
+                    $":white_check_mark: { Context.User.Mention }'s Staff Application has been sumited\n" +
                     $"It is currently waiting for reviewed.\n" +
                     $"Do `!staffappreview` to see how many applications are open" +
                     $"Do `!staffappreview {ticketnumber}` to review\n" +
@@ -223,6 +224,17 @@ namespace MCBot
 
         public void Save(string ticketnumber)
         {
+            foreach (var file in Directory.GetFiles(Staff.path))
+            {
+                AppFile af = new AppFile().Load(new FileInfo(file).Name.Replace("#", string.Empty).Replace(new FileInfo(file).Extension, string.Empty));
+                if (af.username == username && af.ticketStatus == TicketStatus.Open)
+                {
+                    GetUser.SendMessageAsync("You already have an application in processing at the moment please wat for it to finish then try again.");
+                    if (File.Exists(Staff.path + $"#{ticketnumber}.tcapp")) File.Delete(Staff.path + $"#{ticketnumber}.tcapp");
+                    return;
+                }
+            }
+
             XmlSerializer xml = new XmlSerializer(typeof(AppFile));
             if (File.Exists(Staff.path + $"#{ticketnumber}.tcapp")) File.Delete(Staff.path + $"#{ticketnumber}.tcapp");
             var fs = new FileStream(Staff.path + $"#{ticketnumber}.tcapp", FileMode.Create);
