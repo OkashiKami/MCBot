@@ -706,18 +706,32 @@ namespace MCBot
                 sw.Write(app);
                 sw.Flush();
                 sw.Close();
-                var file = new AppFile().Process(ticketnumber);
-                file.id = Context.User.Id;
-                file.Save(ticketnumber);
 
-                await TCProgram.client.GetGuild(Settings.Default.TCGuild).GetTextChannel(Settings.Default.StaffChannelID).SendMessageAsync(
-                    $":white_check_mark: { Context.User.Mention }'s Staff Application has been sumited\n" +
-                    $"It is currently waiting for reviewed.\n" +
-                    $"Do `!staffappreview` to see how many applications are open" +
-                    $"Do `!staffappreview {ticketnumber}` to review\n" +
-                    $"Do `!staffappaccept {ticketnumber}` to accept\n" +
-                    $"Do `!staffappdeny {ticketnumber}` to deny\n" +
-                    $"Do `!staffappdeny {ticketnumber}` 'reason-hea' to deny and reply to the sender");
+
+                //varify application layout
+                var lines = File.ReadLines(TCProgram.path + $"#{ticketnumber}.tcapp").ToList();
+                if (lines.Count != 11)
+                {
+                    await Context.User.SendMessageAsync(
+                        $":white_check_mark: your staff applicatin dont seam to be in the right format\n" +
+                        $"Do `!staffapply` to view an example.");
+                    try { File.Delete(TCProgram.path + $"#{ticketnumber}.tcapp"); } catch { }
+                }
+                else
+                {
+                    var file = new AppFile().Process(ticketnumber);
+                    file.id = Context.User.Id;
+                    file.Save(ticketnumber);
+
+                    await TCProgram.client.GetGuild(Settings.Default.TCGuild).GetTextChannel(Settings.Default.StaffChannelID).SendMessageAsync(
+                        $":white_check_mark: { Context.User.Mention }'s Staff Application has been sumited\n" +
+                        $"It is currently waiting for reviewed.\n" +
+                        $"Do `!staffappreview` to see how many applications are open" +
+                        $"Do `!staffappreview {ticketnumber}` to review\n" +
+                        $"Do `!staffappaccept {ticketnumber}` to accept\n" +
+                        $"Do `!staffappdeny {ticketnumber}` to deny\n" +
+                        $"Do `!staffappdeny {ticketnumber}` 'reason-hea' to deny and reply to the sender");
+                }
             }
         }
     }
